@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 class GalleryButton extends StatelessWidget {
   const GalleryButton({super.key});
 
+  void openGallery() {
+    debugPrint('Opening gallery...');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        debugPrint('Opening gallery...');
-      },
-      icon: Icon(Icons.browse_gallery),
-    );
+    final Icon icon = Icon(Icons.photo);
+
+    return OutlinedButton(onPressed: openGallery, child: icon);
   }
 }
