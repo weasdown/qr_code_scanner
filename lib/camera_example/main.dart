@@ -9,7 +9,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:video_player/video_player.dart';
+// import 'package:video_player/video_player.dart';
 
 /// Camera example home widget.
 class CameraExampleHome extends StatefulWidget {
@@ -48,7 +48,7 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
   CameraController? controller;
   XFile? imageFile;
   XFile? videoFile;
-  VideoPlayerController? videoController;
+  // VideoPlayerController? videoController;
   VoidCallback? videoPlayerListener;
   bool enableAudio = true;
   double _minAvailableExposureOffset = 0.0;
@@ -224,19 +224,20 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        if (videoController case final VideoPlayerController controller?)
-          Container(
-            width: 64.0,
-            height: 64.0,
-            decoration: BoxDecoration(border: Border.all(color: Colors.pink)),
-            child: Center(
-              child: AspectRatio(
-                aspectRatio: controller.value.aspectRatio,
-                child: VideoPlayer(controller),
-              ),
-            ),
-          )
-        else if (imageFile?.path case final String path)
+        // if (videoController case final VideoPlayerController controller?)
+        //   Container(
+        //     width: 64.0,
+        //     height: 64.0,
+        //     decoration: BoxDecoration(border: Border.all(color: Colors.pink)),
+        //     child: Center(
+        //       child: AspectRatio(
+        //         aspectRatio: controller.value.aspectRatio,
+        //         child: VideoPlayer(controller),
+        //       ),
+        //     ),
+        //   )
+        // else
+        if (imageFile?.path case final String path)
           Container(
             width: 64.0,
             height: 64.0,
@@ -506,16 +507,16 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
               ? onTakePictureButtonPressed
               : null,
         ),
-        IconButton(
-          icon: const Icon(Icons.videocam),
-          color: Colors.blue,
-          onPressed:
-              cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  !cameraController.value.isRecordingVideo
-              ? onVideoRecordButtonPressed
-              : null,
-        ),
+        // IconButton(
+        //   icon: const Icon(Icons.videocam),
+        //   color: Colors.blue,
+        //   onPressed:
+        //       cameraController != null &&
+        //           cameraController.value.isInitialized &&
+        //           !cameraController.value.isRecordingVideo
+        //       ? onVideoRecordButtonPressed
+        //       : null,
+        // ),
         IconButton(
           icon:
               cameraController != null &&
@@ -532,16 +533,16 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
                     : onPauseButtonPressed
               : null,
         ),
-        IconButton(
-          icon: const Icon(Icons.stop),
-          color: Colors.red,
-          onPressed:
-              cameraController != null &&
-                  cameraController.value.isInitialized &&
-                  cameraController.value.isRecordingVideo
-              ? onStopButtonPressed
-              : null,
-        ),
+        // IconButton(
+        //   icon: const Icon(Icons.stop),
+        //   color: Colors.red,
+        //   onPressed:
+        //       cameraController != null &&
+        //           cameraController.value.isInitialized &&
+        //           cameraController.value.isRecordingVideo
+        //       ? onStopButtonPressed
+        //       : null,
+        // ),
         IconButton(
           icon: const Icon(Icons.pause_presentation),
           color:
@@ -706,8 +707,8 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
       if (mounted) {
         setState(() {
           imageFile = file;
-          videoController?.dispose();
-          videoController = null;
+          // videoController?.dispose();
+          // videoController = null;
         });
         if (file != null) {
           showInSnackBar('Picture saved to ${file.path}');
@@ -799,26 +800,26 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     });
   }
 
-  void onVideoRecordButtonPressed() {
-    startVideoRecording().then((_) {
-      if (mounted) {
-        setState(() {});
-      }
-    });
-  }
-
-  void onStopButtonPressed() {
-    stopVideoRecording().then((XFile? file) {
-      if (mounted) {
-        setState(() {});
-      }
-      if (file != null) {
-        showInSnackBar('Video recorded to ${file.path}');
-        videoFile = file;
-        _startVideoPlayer();
-      }
-    });
-  }
+  // void onVideoRecordButtonPressed() {
+  //   startVideoRecording().then((_) {
+  //     if (mounted) {
+  //       setState(() {});
+  //     }
+  //   });
+  // }
+  //
+  // void onStopButtonPressed() {
+  //   stopVideoRecording().then((XFile? file) {
+  //     if (mounted) {
+  //       setState(() {});
+  //     }
+  //     if (file != null) {
+  //       showInSnackBar('Video recorded to ${file.path}');
+  //       videoFile = file;
+  //       _startVideoPlayer();
+  //     }
+  //   });
+  // }
 
   Future<void> onPausePreviewButtonPressed() async {
     final CameraController? cameraController = controller;
@@ -978,36 +979,36 @@ class _CameraExampleHomeState extends State<CameraExampleHome>
     }
   }
 
-  Future<void> _startVideoPlayer() async {
-    if (videoFile == null) {
-      return;
-    }
-
-    final VideoPlayerController vController = kIsWeb
-        ? VideoPlayerController.networkUrl(Uri.parse(videoFile!.path))
-        : VideoPlayerController.file(File(videoFile!.path));
-
-    videoPlayerListener = () {
-      if (videoController != null) {
-        // Refreshing the state to update video player with the correct ratio.
-        if (mounted) {
-          setState(() {});
-        }
-        videoController!.removeListener(videoPlayerListener!);
-      }
-    };
-    vController.addListener(videoPlayerListener!);
-    await vController.setLooping(true);
-    await vController.initialize();
-    await videoController?.dispose();
-    if (mounted) {
-      setState(() {
-        imageFile = null;
-        videoController = vController;
-      });
-    }
-    await vController.play();
-  }
+  // Future<void> _startVideoPlayer() async {
+  //   if (videoFile == null) {
+  //     return;
+  //   }
+  //
+  //   final VideoPlayerController vController = kIsWeb
+  //       ? VideoPlayerController.networkUrl(Uri.parse(videoFile!.path))
+  //       : VideoPlayerController.file(File(videoFile!.path));
+  //
+  //   videoPlayerListener = () {
+  //     if (videoController != null) {
+  //       // Refreshing the state to update video player with the correct ratio.
+  //       if (mounted) {
+  //         setState(() {});
+  //       }
+  //       videoController!.removeListener(videoPlayerListener!);
+  //     }
+  //   };
+  //   vController.addListener(videoPlayerListener!);
+  //   await vController.setLooping(true);
+  //   await vController.initialize();
+  //   await videoController?.dispose();
+  //   if (mounted) {
+  //     setState(() {
+  //       imageFile = null;
+  //       videoController = vController;
+  //     });
+  //   }
+  //   await vController.play();
+  // }
 
   Future<XFile?> takePicture() async {
     final CameraController? cameraController = controller;
