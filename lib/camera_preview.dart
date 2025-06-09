@@ -6,6 +6,17 @@ class CameraPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SizedBox.expand(
+      child: DecoratedBox(
+        decoration: BoxDecoration(border: Border.all()),
+        child: Center(
+          child: Text(
+            'Camera Preview Placeholder',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+        ),
+      ),
+    );
   }
 }
